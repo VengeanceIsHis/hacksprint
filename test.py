@@ -5,8 +5,8 @@ import os
 def main():
     pg.init()
     screen = pg.display.set_mode((640, 480))  # Create a display surface
-    pg.display.set_caption("White Screen")
-    image_path = os.path.join(os.path.expanduser('~'), 'Documents', 'gamephotos', 'forest')
+    pg.display.set_caption("Smoky Lava")
+    image_path = os.path.join('assets', 'images', 'background')
     print("Image Path:", image_path)
 
     image = pg.image.load(image_path)

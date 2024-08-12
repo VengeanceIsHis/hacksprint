@@ -10,6 +10,7 @@ def main():
     print("Image Path:", image_path)
 
     image = pg.image.load(image_path)
+    image = pygame.transform.scale(image, (1920, 1080))
     running = True
     while running:
         for event in pg.event.get():

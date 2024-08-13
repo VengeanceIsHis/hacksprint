@@ -59,7 +59,7 @@ def main():
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        screen.blit(knight_animation.get_current_frame(), (15, 15))
+        screen.blit(knight_animation.get_current_frame(), (7.5, 7.5))
 
         pg.display.flip()
 

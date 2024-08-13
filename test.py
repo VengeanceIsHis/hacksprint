@@ -36,7 +36,7 @@ def main():
     image = pg.image.load(image_path)
     image = pg.transform.scale(image, (1080, 1080))
 
-    knight_folder_path = os.path.join('assets', 'knight', 'idle')
+    knight_folder_path = os.path.join('assets', 'Knight', 'idle')
     knight_frames = load_animation_frames(knight_folder_path)
     frame_rate = 200
     knight_animation = Animation(knight_frames, frame_rate)

@@ -70,7 +70,7 @@ def main():
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        player.draw(screen, 100, 100)
+        player.draw(screen)
 
         pg.display.flip()
 

@@ -46,7 +46,7 @@ def main():
 
     knight_folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
     knight_frames = load_animation_frames(knight_folder_path)
-    frame_rate = 60
+    frame_rate = 300
     knight_animation = Animation(knight_frames, frame_rate)
 
     running = True

@@ -35,7 +35,8 @@ def draw_with_outline(screen, image, position, outline_color, outline_width):
 
 def main():
     pg.init()
-    screen = pg.display.set_mode((1080, 1080))
+    screen_width, screen_height = 1080, 1080
+    screen = pg.display.set_mode((screen_width, screen_height))
     pg.display.set_caption("Smoky Lava")
 
     image_path = os.path.join('assets', 'images', 'Castle_4.png')
@@ -45,7 +46,7 @@ def main():
 
     knight_folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
     knight_frames = load_animation_frames(knight_folder_path)
-    frame_rate = 200
+    frame_rate = 60
     knight_animation = Animation(knight_frames, frame_rate)
 
     running = True

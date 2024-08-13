@@ -1,24 +1,31 @@
 import pygame as pg
 import os
 
-class Player: 
+class Player:
     def __init__(self, width, height):
         self.width = width
         self.height = height
         self.health = 3
         self.path = "assets/animations/Knight/idle"
+        self.frames = self.load_frames()
+        self.frame_rate = 300
+        self.animation = Animation(self.frames, self.frame_rate)
 
-    def player(self):
+    def load_frames(self):
         frames = []
         for filename in sorted(os.listdir(self.path)):
             if filename.endswith('.png'):
                 frame_path = os.path.join(self.path, filename)
                 frame = pg.image.load(frame_path)
-                frame = pg.transform.scale(frame, self.width, self.height)
+                frame = pg.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
-        frame_rate = 300
-        knight_animation = Animation(frames, frame_rate)
-        
+        return frames
+
+    def update(self):
+        self.animation.update()
+
+    def draw(self, screen, x, y):
+        screen.blit(self.animation.get_current_frame(), (x, y))
 
 class Animation:
     def __init__(self, frames, frame_rate):

@@ -3,10 +3,7 @@ import os
 
 def load_animation_frames(folder_path):
     frames = []
-    for filename in sorted(os.listdir(folder_path)):
-        if filename.endswith('.png'):
-            frame_path = os.path.join(folder_path, filename)
-            frame = pg.image.load(frame_path)
+    
             frames.append(frame)
     return frames
 
@@ -15,7 +12,19 @@ class Player:
         self.width = width
         self.height = height
         self.health = 3
+        self.path = "assets/animations/Knight/idle"
 
+    def player(self):
+        frames = []
+        for filename in sorted(os.listdir(self.path)):
+            if filename.endswith('.png'):
+                frame_path = os.path.join(self.path, filename)
+                frame = pg.image.load(frame_path)
+                frame = pg.transform.scale(frame, 40, 40)
+                frames.append(frame)
+        frame_rate = 300
+        knight_animation = Animation(frames, frame_rate)
+        
 
 class Animation:
     def __init__(self, frames, frame_rate):

@@ -13,6 +13,10 @@ class Player:
         # Create an Animation object
         self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
 
+        # Player position
+        self.x = 100
+        self.y = 100
+
     def load_frames(self):
         frames = []
         folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
@@ -33,8 +37,12 @@ class Player:
         # Return the current frame from the animation
         return self.animation.get_current_frame()
 
-    def draw(self, screen, x, y):
-        screen.blit(self.animation.get_current_frame(), (x, y))
+    def draw(self, screen):
+        screen.blit(self.get_current_frame(), (self.x, self.y))
+
+    def move(self, dx, dy):
+        self.x += dx
+        self.y += dy
 
 class Animation:
     def __init__(self, frames, frame_rate):
@@ -51,13 +59,6 @@ class Animation:
 
     def get_current_frame(self):
         return self.frames[self.current_frame]
-
-def draw_with_outline(screen, image, position, outline_color, outline_width):
-
-    outline_rect = pg.Rect(position[0] - outline_width, position[1] - outline_width, image.get_width() + 2 * outline_width, image.get_height() + 2 * outline_width)
-    pg.draw.rect(screen, outline_color, outline_rect, outline_width)
-
-    screen.blit(image, position)
 
 def main():
     pg.init()
@@ -76,12 +77,23 @@ def main():
             if event.type == pg.QUIT:
                 running = False
 
+        # Handle player movement
+        key = pg.key.get_pressed()
+        if key[pg.K_a]:
+            player.move(-5, 0)
+        if key[pg.K_d]:
+            player.move(5, 0)
+        if key[pg.K_w]:
+            player.move(0, -5)
+        if key[pg.K_s]:
+            player.move(0, 5)
+
+        # Update player animation
         player.update()
 
-        screen.fill((255, 255, 255))
-        screen.blit(image, (0, 0))
-
-        player.draw(screen, 100, 100)
+        # Draw everything
+        screen.blit(image, (0, 0))  # Draw background
+        player.draw(screen)         # Draw player
 
         pg.display.flip()
 

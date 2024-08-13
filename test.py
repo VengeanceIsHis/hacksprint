@@ -2,9 +2,7 @@ import pygame as pg
 import os
 
 class Player:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+    def __init__(self):
         self.health = 3
         self.path = "assets/animations/Knight/idle"
         self.frames = self.load_frames()
@@ -57,10 +55,9 @@ def main():
     pg.display.set_caption("Smoky Lava")
 
     image_path = os.path.join('assets', 'images', 'Castle_4.png')
-    print("Image Path:", image_path)
     image = pg.image.load(image_path)
     image = pg.transform.scale(image, (1080, 1080))
-    player = Player(40, 40)
+    player = Player()
 
     running = True
     while running:
@@ -68,12 +65,12 @@ def main():
             if event.type == pg.QUIT:
                 running = False
 
-        knight_animation.update()
+        player.update()
 
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        screen.blit(knight_animation.get_current_frame(), (7.5, 7.5))
+        player.draw(screen, 100, 100)
 
         pg.display.flip()
 

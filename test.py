@@ -20,6 +20,7 @@ class Player:
             if filename.endswith('.png'):
                 frame_path = os.path.join(folder_path, filename)
                 frame = pg.image.load(frame_path)
+                # Scale frame using defined width and height
                 frame = pg.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
         return frames
@@ -27,6 +28,10 @@ class Player:
     def update(self):
         # Update the animation
         self.animation.update()
+
+    def get_current_frame(self):
+        # Return the current frame from the animation
+        return self.animation.get_current_frame()
 
     def draw(self, screen, x, y):
         screen.blit(self.animation.get_current_frame(), (x, y))
@@ -76,7 +81,7 @@ def main():
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        player.draw(screen)
+        player.draw(screen, 100, 100)
 
         pg.display.flip()
 

@@ -15,15 +15,15 @@ class Player:
             if filename.endswith('.png'):
                 frame_path = os.path.join(self.path, filename)
                 frame = pg.image.load(frame_path)
-                frame = pg.transform.scale(frame, (self.width, self.height))
+                frame = pg.transform.scale(frame, (100, 100))
                 frames.append(frame)
         return frames
 
     def update(self):
         self.animation.update()
 
-    def draw(self, screen, x, y):
-        screen.blit(self.animation.get_current_frame(), (x, y))
+    def draw(self, screen):
+        screen.blit(self.animation.get_current_frame(), (100, 100))
 
 class Animation:
     def __init__(self, frames, frame_rate):

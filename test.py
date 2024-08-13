@@ -26,6 +26,13 @@ class Animation:
     def get_current_frame(self):
         return self.frames[self.current_frame]
 
+def draw_with_outline(screen, image, position, outline_color, outline_width):
+
+    outline_rect = pg.Rect(position[0] - outline_width, position[1] - outline_width, image.get_width() + 2 * outline_width, image.get_height() + 2 * outline_width)
+    pg.draw.rect(screen, outline_color, outline_rect, outline_width)
+    
+    screen.blit(image, position)
+
 def main():
     pg.init()
     screen = pg.display.set_mode((1080, 1080))
@@ -52,7 +59,7 @@ def main():
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        screen.blit(knight_animation.get_current_frame(), (100, 100))
+        screen.blit(knight_animation.get_current_frame(), (50, 50))
 
         pg.display.flip()
 

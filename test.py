@@ -4,13 +4,13 @@ import os
 
 def main():
     pg.init()
-    screen = pg.display.set_mode((1920, 1080))  # Create a display surface
+    screen = pg.display.set_mode((1080, 1080))  # Create a display surface
     pg.display.set_caption("Smoky Lava")
     image_path = os.path.join('assets', 'images', 'Castle_4.png')
     print("Image Path:", image_path)
 
     image = pg.image.load(image_path)
-    image = pg.transform.scale(image, (1920, 1080))
+    image = pg.transform.scale(image, (1080, 1080))
     running = True
     while running:
         for event in pg.event.get():

@@ -10,6 +10,13 @@ def load_animation_frames(folder_path):
             frames.append(frame)
     return frames
 
+class Player: 
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.health = 3
+
+
 class Animation:
     def __init__(self, frames, frame_rate):
         self.frames = frames
@@ -30,7 +37,7 @@ def draw_with_outline(screen, image, position, outline_color, outline_width):
 
     outline_rect = pg.Rect(position[0] - outline_width, position[1] - outline_width, image.get_width() + 2 * outline_width, image.get_height() + 2 * outline_width)
     pg.draw.rect(screen, outline_color, outline_rect, outline_width)
-    
+
     screen.blit(image, position)
 
 def main():
@@ -46,6 +53,7 @@ def main():
 
     knight_folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
     knight_frames = load_animation_frames(knight_folder_path)
+    knight_frames = pg.transform.scale(knight_frames, 40, 40)
     frame_rate = 300
     knight_animation = Animation(knight_frames, frame_rate)
 

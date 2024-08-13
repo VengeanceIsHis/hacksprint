@@ -1,30 +1,29 @@
 import pygame as pg
 import os
 
-def load_animation_frames(folder_path):
-    frames = []
-    
-            frames.append(frame)
-    return frames
-
-class Player: 
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
+class Player:
+    def __init__(self):
         self.health = 3
         self.path = "assets/animations/Knight/idle"
+        self.frames = self.load_frames()
+        self.frame_rate = 300
+        self.animation = Animation(self.frames, self.frame_rate)
 
-    def player(self):
+    def load_frames(self):
         frames = []
         for filename in sorted(os.listdir(self.path)):
             if filename.endswith('.png'):
                 frame_path = os.path.join(self.path, filename)
                 frame = pg.image.load(frame_path)
-                frame = pg.transform.scale(frame, 40, 40)
+                frame = pg.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
-        frame_rate = 300
-        knight_animation = Animation(frames, frame_rate)
-        
+        return frames
+
+    def update(self):
+        self.animation.update()
+
+    def draw(self, screen, x, y):
+        screen.blit(self.animation.get_current_frame(), (x, y))
 
 class Animation:
     def __init__(self, frames, frame_rate):
@@ -56,15 +55,9 @@ def main():
     pg.display.set_caption("Smoky Lava")
 
     image_path = os.path.join('assets', 'images', 'Castle_4.png')
-    print("Image Path:", image_path)
     image = pg.image.load(image_path)
     image = pg.transform.scale(image, (1080, 1080))
-
-    knight_folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
-    knight_frames = load_animation_frames(knight_folder_path)
-    knight_frames = pg.transform.scale(knight_frames, 40, 40)
-    frame_rate = 300
-    knight_animation = Animation(knight_frames, frame_rate)
+    player = Player()
 
     running = True
     while running:
@@ -72,12 +65,12 @@ def main():
             if event.type == pg.QUIT:
                 running = False
 
-        knight_animation.update()
+        player.update()
 
         screen.fill((255, 255, 255))
         screen.blit(image, (0, 0))
 
-        screen.blit(knight_animation.get_current_frame(), (7.5, 7.5))
+        player.draw(screen, 100, 100)
 
         pg.display.flip()
 

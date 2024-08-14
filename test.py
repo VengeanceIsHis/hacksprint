@@ -39,11 +39,10 @@ class Idle(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         self.sprites = []
-        new_size = (50, 50)
         self.image0 = pygame.image.load('assets/animations/Knight/idle/i1.png')
         self.image1 = pygame.image.load('assets/animations/Knight/idle/i2.png')
-        self.image0 = pygame.transform.scale(self.image0, (50, 50))
-        self.image1 = pygame.transform.scale(self.image1, (50, 50))
+        self.image0 = pygame.transform.scale(self.image0, (100, 100))
+        self.image1 = pygame.transform.scale(self.image1, (100, 100))
         self.sprites.append(self.image0)
         self.sprites.append(self.image1)
 

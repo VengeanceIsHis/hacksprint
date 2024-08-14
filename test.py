@@ -58,7 +58,7 @@ class Player(pygame.sprite.Sprite):
     def load_frames(self):
         for animation_type in self.animations:
             frames = []
-            folder_path = os.path.join('assets', 'animations', 'Knight', path)
+            folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
             for filename in sorted(os.listdir(folder_path)):
                 if filename.endswith('.png'):
                     frame_path = os.path.join(folder_path, filename)

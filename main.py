@@ -166,7 +166,6 @@ def main():
             break
 
         player.update()
-        player.draw(BG)
         draw(elapsed_time, stars)
 
     pygame.quit()

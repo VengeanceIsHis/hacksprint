@@ -1,4 +1,3 @@
-
 import pygame
 import time
 import random
@@ -42,9 +41,7 @@ class Player:
 
         # Load frames for the animation
         self.frames = self.load_frames()
-        self.animations = {
-            'run_left': self.load_frames()
-        }
+        self.animations = ['idle', 'run']
 
         # Create an Animation object
         self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
@@ -55,14 +52,15 @@ class Player:
 
     def load_frames(self):
         frames = []
-        folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
-        for filename in sorted(os.listdir(folder_path)):
-            if filename.endswith('.png'):
-                frame_path = os.path.join(folder_path, filename)
-                frame = pygame.image.load(frame_path)
-                # Scale frame using defined width and height
-                frame = pygame.transform.scale(frame, (self.width, self.height))
-                frames.append(frame)
+        for path in self.animations:
+            folder_path = os.path.join('assets', 'animations', 'Knight', path)
+            for filename in sorted(os.listdir(folder_path)):
+                if filename.endswith('.png'):
+                    frame_path = os.path.join(folder_path, filename)
+                    frame = pygame.image.load(frame_path)
+                    # Scale frame using defined width and height
+                    frame = pygame.transform.scale(frame, (self.width, self.height))
+                    frames.append(frame)
         return frames
 
     def update(self):
@@ -101,8 +99,6 @@ def main():
     run = True
 
     player = Player()
-    player.load_frames('idle')
-    player.load_frames
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0

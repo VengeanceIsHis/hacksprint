@@ -130,7 +130,7 @@ def main():
             
 
         # Ensure the player position is updated
-        player.move(dx, dy)
+        player.move(dx, dy, 1000, 800)
 
         for star in stars[:]:
             star.y += STAR_VEL

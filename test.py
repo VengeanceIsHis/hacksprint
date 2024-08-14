@@ -58,7 +58,7 @@ class Animation:
             return pygame.transform.flip(frame, True, False)
         return frame
 
-class Player(Animation):
+class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.width = 64
@@ -173,7 +173,7 @@ def main():
         # Update the player's animation and draw the updated player
         player.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background image
-        player.draw(BG)      # Draw the player on the screen
+        player.draw(WIN)      # Draw the player on the screen
         draw(elapsed_time, stars)  # Draw other game elements
         pygame.display.flip()  # Update the display
 

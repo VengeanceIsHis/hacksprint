@@ -53,7 +53,7 @@ class Player(pygame.sprite.Sprite):
 
     def set_animation(self, animation_type):
         if animation_type in self.animations and self.animations[animation_type]:
-            self.current_animation = Animation(self.animation[animation_type], frame_rate=300)
+            self.current_animation = Animation(self.animations[animation_type], frame_rate=300)
     
     def load_frames(self):
         for animation_type in self.animations:

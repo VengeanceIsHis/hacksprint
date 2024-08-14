@@ -2,6 +2,7 @@
 import pygame
 import time
 import random
+import os
 pygame.font.init()
 
 WIDTH, HEIGHT = 1000, 800
@@ -21,25 +22,89 @@ STAR_VEL = 3
 FONT = pygame.font.SysFont("comicsans", 30)
 
 
-def draw(player, elapsed_time, stars):
+def draw(elapsed_time, stars):
     WIN.blit(BG, (0, 0))
 
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
 
-    pygame.draw.rect(WIN, "red", player)
 
     for star in stars:
         pygame.draw.rect(WIN, "white", star)
 
     pygame.display.update()
 
+class Player:
+    def __init__(self):
+        # Define width and height for scaling frames
+        self.width = 64  # Example width, adjust as needed
+        self.height = 64  # Example height, adjust as needed
+
+        # Load frames for the animation
+        self.frames = self.load_frames()
+        self.animations = {
+            'run_left': self.load_frames('run'),
+            'run_right': self.load_frames('run'),
+            'idle': self.load_frames('idle')
+        }
+
+        # Create an Animation object
+        self.animation = Animation(self.animations['idle'], frame_rate=300)  # Adjust frame_rate as needed
+        self.direction = 'idle'
+        self.flip = False
+
+        # Player position
+        self.x = 100
+        self.y = 100
+
+    def load_frames(self):
+        frames = []
+        folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
+        for filename in sorted(os.listdir(folder_path)):
+            if filename.endswith('.png'):
+                frame_path = os.path.join(folder_path, filename)
+                frame = pygame.image.load(frame_path)
+                # Scale frame using defined width and height
+                frame = pygame.transform.scale(frame, (self.width, self.height))
+                frames.append(frame)
+        return frames
+
+    def update(self):
+        # Update the animation
+        self.animation.update()
+
+    def get_current_frame(self):
+        # Return the current frame from the animation
+        return self.animation.get_current_frame()
+
+    def draw(self, screen):
+        screen.blit(self.animation.get_current_frame(), (self.x, self.y))
+
+    def move(self, dx, dy):
+        self.x += dx
+        self.y += dy
+
+class Animation:
+    def __init__(self, frames, frame_rate, flipped=False):
+        self.frames = frames
+        self.frame_rate = frame_rate
+        self.current_frame = 0
+        self.last_update = pygame.time.get_ticks()
+        self.flipped = flipped
+
+    def update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > self.frame_rate:
+            self.current_frame = (self.current_frame + 1) % len(self.frames)
+            self.last_update = now
+
+    def get_current_frame(self):
+        return self.frames[self.current_frame]
 
 def main():
     run = True
 
-    player = pygame.Rect(200, HEIGHT - PLAYER_HEIGHT,
-                         PLAYER_WIDTH, PLAYER_HEIGHT)
+    player = Player()
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
@@ -91,7 +156,9 @@ def main():
             pygame.time.delay(4000)
             break
 
-        draw(player, elapsed_time, stars)
+        player.update()
+        player.draw(BG)
+        draw(elapsed_time, stars)
 
     pygame.quit()
 

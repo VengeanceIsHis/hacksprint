@@ -58,7 +58,7 @@ class Animation:
             return pygame.transform.flip(frame, True, False)
         return frame
 
-class Player(pygame.sprite.Sprite):
+class Player(Animation):
     def __init__(self):
         super().__init__()
         self.width = 64
@@ -98,9 +98,13 @@ class Player(pygame.sprite.Sprite):
             self.current_animation.update()
 
     def draw(self, screen):
+        frame = self.get_current_frame()
+        if frame: surface.blit(frame, self.rect.topleft)
+
+    def get_current_frame(self):
         if self.current_animation:
-            print('hello')
-            screen.blit(self.current_animation.get_current_frame(), (self.x, self.y))
+            return self.current_animation.get_current_frame()
+        return None
 
     def move(self, dx, dy):
         self.x += dx

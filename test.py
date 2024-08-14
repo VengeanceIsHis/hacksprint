@@ -36,6 +36,8 @@ def display(elapsed_time, stars):
 class Idle(pygame.sprite.Sprite):
     def __init__(self,x , y):
         super().__init__()
+        self.x = x
+        self.y = y
         self.sprites = []
         self.sprites.append(pygame.image.load('assets/animations/Knight/idle/i1.png'))
         self.sprites.append(pygame.image.load('assets/animations/Knight/idle/i2.png'))
@@ -43,7 +45,7 @@ class Idle(pygame.sprite.Sprite):
         self.image = self.sprites[self.current_sprite]
         
         self.rect = self.image.get_rect()
-        self.rect.topleft = [x, y]
+        self.rect.topleft = [self.x, self.y]
 
     def update(self):
             self.current_sprite += 1

@@ -34,7 +34,7 @@ def draw(elapsed_time, stars):
     pygame.display.update()
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self):
         super().__init__()
         self.width = 64
         self.height = 64

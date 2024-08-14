@@ -99,7 +99,8 @@ class Player(Animation):
 
     def draw(self, screen):
         frame = self.get_current_frame()
-        if frame: surface.blit(frame, self.rect.topleft)
+        if frame: 
+            screen.blit(frame, self.rect.topleft)
 
     def get_current_frame(self):
         if self.current_animation:

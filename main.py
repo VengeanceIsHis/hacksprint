@@ -58,9 +58,9 @@ class Player:
         self.y = 500
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def load_frames(self, folder):
+    def load_frames(self, a_type):
         frames = []
-        folder_path = os.path.join('assets', 'animations', 'Knight', folder)
+        folder_path = os.path.join('assets', 'animations', 'Knight', a_type)
         for filename in sorted(os.listdir(folder_path)):
             if filename.endswith('.png'):
                 frame_path = os.path.join(folder_path, filename)
@@ -73,17 +73,23 @@ class Player:
     def update(self):
         # Update the animation
         self.animation.update()
+        self.rect.topleft = (self.x, self.y)
 
     def get_current_frame(self):
         # Return the current frame from the animation
         return self.animation.get_current_frame()
 
     def draw(self, screen):
-        screen.blit(self.animation.get_current_frame(), (self.x, self.y))
+        screen.blit(self.animation.get_current_frame(), self.rect.topleft)
 
+    def set_animation(self, a_type):
+        if self.direction != a_type:
+            self.direction = a_type
+            self.animation = Animation(self.animations[a_type], frame_rate=300)
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        self.rect.topleft = (self.x, self.y)
 
 class Animation:
     def __init__(self, frames, frame_rate, flipped=False):
@@ -138,10 +144,10 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
             player.x -= PLAYER_VEL
-            player.load_frames('run')
+            player.set_animation('run_left')
         if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.width <= WIDTH:
             player.x += PLAYER_VEL
-            player.load_frames('run')
+            player.set_animation('run_right')
 
         for star in stars[:]:
             star.y += STAR_VEL

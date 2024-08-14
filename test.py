@@ -34,7 +34,7 @@ def draw(elapsed_time, stars):
     pygame.display.update()
 
 class Animation:
-    def __init__(self, frames, frame_rate, flipped=False):
+    def __init__(self, frames=None, frame_rate=300, flipped=False):
         self.frames = frames
         self.frame_rate = frame_rate
         self.current_frame = 0

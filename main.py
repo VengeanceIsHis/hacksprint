@@ -59,9 +59,9 @@ class Player:
         for filename in sorted(os.listdir(folder_path)):
             if filename.endswith('.png'):
                 frame_path = os.path.join(folder_path, filename)
-                frame = pg.image.load(frame_path)
+                frame = pygame.image.load(frame_path)
                 # Scale frame using defined width and height
-                frame = pg.transform.scale(frame, (self.width, self.height))
+                frame = pygame.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
         return frames
 
@@ -85,11 +85,11 @@ class Animation:
         self.frames = frames
         self.frame_rate = frame_rate
         self.current_frame = 0
-        self.last_update = pg.time.get_ticks()
+        self.last_update = pygame.time.get_ticks()
         self.flipped = flipped
 
     def update(self):
-        now = pg.time.get_ticks()
+        now = pygame.time.get_ticks()
         if now - self.last_update > self.frame_rate:
             self.current_frame = (self.current_frame + 1) % len(self.frames)
             self.last_update = now
@@ -100,7 +100,7 @@ class Animation:
 def main():
     run = True
 
-    player = Player(width=40, height=40)
+    player = Player()
     player.load_frames('idle')
     player.load_frames
     clock = pygame.time.Clock()

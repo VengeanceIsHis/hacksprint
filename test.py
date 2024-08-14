@@ -53,7 +53,7 @@ class Animation:
             return pygame.transform.flip(frame, True, False)
         return frame
 
-class Player(pygame.sprite.Sprite):
+class Player(Animation):
     def __init__(self):
         super().__init__()
         self.width = 64
@@ -137,10 +137,10 @@ def main():
 
         if keys[pygame.K_LEFT]:
             dx = -PLAYER_VEL
-            player.set_animation('run_left')
+            player.set_animation('run')
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
-            player.set_animation('run_right')
+            player.set_animation('run')
         else:
             player.set_animation('idle')
 

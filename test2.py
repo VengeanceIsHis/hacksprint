@@ -80,6 +80,7 @@ class Animation:
         if self.flipped:
             return pg.transform.flip(frame, True, False)
         return frame
+
 def main():
     pg.init()
     WIDTH, HEIGHT = 800, 600
@@ -106,10 +107,10 @@ def main():
 
         if keys[pg.K_LEFT]:
             dx = -5
-            player.set_animation('run_left')
+            player.set_animation('run')
         elif keys[pg.K_RIGHT]:
             dx = 5
-            player.set_animation('run_right')
+            player.set_animation('run')
         else:
             player.set_animation('idle')
 

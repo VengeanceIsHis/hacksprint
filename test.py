@@ -148,10 +148,10 @@ def main():
 
         if keys[pygame.K_LEFT]:
             dx = -PLAYER_VEL
-            player.set_animation('run')
+            player.set_animation('run_left')
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
-            player.set_animation('run')
+            player.set_animation('run_right')
         else:
             player.set_animation('idle')
 

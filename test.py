@@ -100,16 +100,9 @@ class Run(Idle):
         self.image5 = pygame.image.load('assets/animations/Knight/run/k6.png')
         self.image6 = pygame.image.load('assets/animations/Knight/run/k7.png')
         self.image7 = pygame.image.load('assets/animations/Knight/run/k8.png')
-        self.image0 = pygame.transform.scale(self.image0, (100, 100))
-        self.image1 = pygame.transform.scale(self.image1, (100, 100))
-        self.image2 = pygame.transform.scale(self.image2, (100, 100))
-        self.image3 = pygame.transform.scale(self.image3, (100, 100))
-        self.image4 = pygame.transform.scale(self.image4, (100, 100))
-        self.image5 = pygame.transform.scale(self.image5, (100, 100))
-        self.image6 = pygame.transform.scale(self.image6, (100, 100))
-        self.image7 = pygame.transform.scale(self.image7, (100, 100))
-        self.sprites.append(self.image0)
-        self.sprites.append(self.image1)
+        images = [self.image0, self.image1, self.image2, self.image3, self.image4, self.image5, self.image6, self.image7]
+        for img in images:
+            self.sprites.append(pygame.transform.scale(img, (100, 100)))
         
         # Initialize sprite attributes
         self.current_sprite = 0
@@ -153,6 +146,7 @@ def main():
     run = True
 
     player = Idle(500, 600)
+    run = Run(500, 600)
     moving_sprites = pygame.sprite.Group()
     moving_sprites.add(player)
     clock = pygame.time.Clock()
@@ -191,6 +185,19 @@ def main():
            
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
+         # Check if player is moving
+    if dx != 0 or dy != 0:
+        # Switch to Run state if not already in Run state
+        if not isinstance(player, Run):
+            all_sprites.remove(player)
+            player = Run(WIDTH // 2, HEIGHT // 2)
+            all_sprites.add(player)
+    else:
+        # Switch to Idle state if not already in Idle state
+        if not isinstance(player, Idle):
+            all_sprites.remove(player)
+            player = Idle(WIDTH // 2, HEIGHT // 2)
+            all_sprites.add(player)
         
             
 

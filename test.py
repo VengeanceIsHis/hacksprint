@@ -50,6 +50,7 @@ class Animation:
     def get_current_frame(self):
         frame = self.frames[self.current_frame]
         if self.flipped:
+            print("HIII")
             return pygame.transform.flip(frame, True, False)
         return frame
 

@@ -41,7 +41,7 @@ class Player:
         self.height = 64  # Example height, adjust as needed
 
         # Load frames for the animation
-        self.frames = self.load_frames()
+        self.frames = self.load_frames('idle')
         self.animations = {
             'run_left': self.load_frames('run'),
             'run_right': self.load_frames('run'),

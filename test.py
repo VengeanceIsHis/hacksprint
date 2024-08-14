@@ -61,7 +61,7 @@ class Player(pygame.sprite.Sprite):
             if animation == 'run_left' or animation == 'run_right':
                 animation = 'run'
             frames = []
-            folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
+            folder_path = os.path.join('assets', 'animations', 'Knight', animation)
             for filename in sorted(os.listdir(folder_path)):
                 if filename.endswith('.png'):
                     frame_path = os.path.join(folder_path, filename)

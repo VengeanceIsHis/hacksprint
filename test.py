@@ -75,7 +75,7 @@ class Player(Animation):
         }
 
         # Set the initial animation
-        self.set_animation('idle')
+        self.current_animation = self.animations['idle']
 
     def load_frames(self, animation_type):
         frames = []

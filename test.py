@@ -8,6 +8,7 @@ WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Dodge")
 star_image = pygame.image.load('fireball.png')
+fireball_image = pygame.transform.scale(star_image, (40, 40))
 BG = pygame.transform.scale(pygame.image.load("bg.png"), (WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 40

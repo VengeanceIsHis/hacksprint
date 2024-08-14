@@ -28,7 +28,7 @@ def display(elapsed_time, stars):
 
 
     for star in stars:
-        WIN.blit(star_image, star.topleft)
+        WIN.blit(fireball_image, star.topleft)
 
 
 class Idle(pygame.sprite.Sprite):

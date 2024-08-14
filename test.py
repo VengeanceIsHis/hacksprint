@@ -99,7 +99,6 @@ class Player(Animation):
 
     def draw(self, screen):
         if self.current_animation:
-            print("hello")
             screen.blit(self.current_animation.get_current_frame(), (self.x, self.y))
 
     def move(self, dx, dy):

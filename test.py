@@ -76,7 +76,8 @@ class Player(pygame.sprite.Sprite):
             self.current_sprite += 1
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
-            self.image =self.sprites[self.current_sprite]
+            if current_animation != None:
+                self.image =self.sprites[self.current_sprite]
 
     def get_current_frame(self):
         if self.current_animation:

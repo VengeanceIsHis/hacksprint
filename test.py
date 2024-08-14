@@ -9,6 +9,9 @@ class Player:
 
         # Load frames for the animation
         self.frames = self.load_frames()
+        self.animations = {
+            'run_left': self.load_frames()
+        }
 
         # Create an Animation object
         self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
@@ -45,11 +48,12 @@ class Player:
         self.y += dy
 
 class Animation:
-    def __init__(self, frames, frame_rate):
+    def __init__(self, frames, frame_rate, flipped=False):
         self.frames = frames
         self.frame_rate = frame_rate
         self.current_frame = 0
         self.last_update = pg.time.get_ticks()
+        self.flipped = flipped
 
     def update(self):
         now = pg.time.get_ticks()

@@ -53,8 +53,9 @@ class Player:
         self.flip = False
 
         # Player position
-        self.x = 100
-        self.y = 100
+        self.x = 500
+        self.y = 500
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
     def load_frames(self, folder):
         frames = []
@@ -143,7 +144,7 @@ def main():
             star.y += STAR_VEL
             if star.y > HEIGHT:
                 stars.remove(star)
-            elif star.y + star.height >= player.y and star.colliderect(player.x, player.y):
+            elif star.y + star.height >= player.y and star.colliderect(player.rect):
                 stars.remove(star)
                 hit = True
                 break

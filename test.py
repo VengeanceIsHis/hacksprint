@@ -57,6 +57,9 @@ class Player(pygame.sprite.Sprite):
     
     def load_frames(self):
         for animation_type in self.animations:
+            animation = animation_type
+            if animation == 'run_left' or animation == 'run_right':
+                animation = 'run'
             frames = []
             folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
             for filename in sorted(os.listdir(folder_path)):

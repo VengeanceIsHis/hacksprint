@@ -54,7 +54,6 @@ class Player(pygame.sprite.Sprite):
     def set_animation(self, animation_type):
         if animation_type in self.animations and self.animations[animation_type]:
             self.current_animation = Animation(self.animations[animation_type], frame_rate=300)
-            print("HIIIIIII")
     
     def load_frames(self):
         for animation_type in self.animations:
@@ -85,6 +84,7 @@ class Player(pygame.sprite.Sprite):
         frame = self.get_current_frame()
         if frame:
             screen.blit(frame, (self.x, self.y))
+        print("HIIII")
 
     def move(self, dx, dy):
         self.x += dx

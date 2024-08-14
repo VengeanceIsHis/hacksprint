@@ -57,9 +57,9 @@ class Player:
         self.x = 100
         self.y = 100
 
-    def load_frames(self):
+    def load_frames(self, folder):
         frames = []
-        folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
+        folder_path = os.path.join('assets', 'animations', 'Knight', folder)
         for filename in sorted(os.listdir(folder_path)):
             if filename.endswith('.png'):
                 frame_path = os.path.join(folder_path, filename)

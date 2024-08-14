@@ -83,70 +83,11 @@ class Idle(pygame.sprite.Sprite):
         # Update the rect position
         self.rect.topleft = (self.x, self.y)
 
-
-class Run(Idle):
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        self.x = x
-        self.y = y
-
-        # Load and scale images
-        self.sprites = []
-        self.image0 = pygame.image.load('assets/animations/Knight/run/k1.png')
-        self.image1 = pygame.image.load('assets/animations/Knight/run/k2.png')
-        self.image2 = pygame.image.load('assets/animations/Knight/run/k3.png')
-        self.image3 = pygame.image.load('assets/animations/Knight/run/k4.png')
-        self.image4 = pygame.image.load('assets/animations/Knight/run/k5.png')
-        self.image5 = pygame.image.load('assets/animations/Knight/run/k6.png')
-        self.image6 = pygame.image.load('assets/animations/Knight/run/k7.png')
-        self.image7 = pygame.image.load('assets/animations/Knight/run/k8.png')
-        images = [self.image0, self.image1, self.image2, self.image3, self.image4, self.image5, self.image6, self.image7]
-        for img in images:
-            self.sprites.append(pygame.transform.scale(img, (100, 100)))
-        
-        # Initialize sprite attributes
-        self.current_sprite = 0
-        self.image = self.sprites[self.current_sprite]
-        self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.animation_speed = 0.2  # Adjust animation speed as needed
-        self.last_update = pygame.time.get_ticks()
-
-    def update(self):
-        now = pygame.time.get_ticks()
-        # Update animation frame based on the animation speed
-        if now - self.last_update > 100:  # Adjust frame rate here
-            self.last_update = now
-            self.current_sprite += self.animation_speed
-            if self.current_sprite >= len(self.sprites):
-                self.current_sprite = 0
-            self.image = self.sprites[int(self.current_sprite)]
-            self.rect = self.image.get_rect(topleft=(self.x, self.y))  # Update rect to new image size if needed
-
-    def move(self, dx, dy, screen_width, screen_height):
-        # Update the sprite's position
-        self.x += dx
-        self.y += dy
-
-        # Ensure the sprite stays within screen bounds
-        if self.x < 0:
-            self.x = 0
-        elif self.x + self.rect.width > screen_width:
-            self.x = screen_width - self.rect.width
-
-        if self.y < 0:
-            self.y = 0
-        elif self.y + self.rect.height > screen_height:
-            self.y = screen_height - self.rect.height
-
-        # Update the rect position
-        self.rect.topleft = (self.x, self.y)
 def main():
     pygame.init()
     run = True
 
     player = Idle(500, 600)
-    run = Run(500, 600)
     moving_sprites = pygame.sprite.Group()
     moving_sprites.add(player)
     clock = pygame.time.Clock()
@@ -185,19 +126,6 @@ def main():
            
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
-         # Check if player is moving
-        if dx != 0 or dy != 0:
-        # Switch to Run state if not already in Run state
-            if not isinstance(player, Run):
-                moving_sprites.remove(player)
-                player = Run(WIDTH // 2, HEIGHT // 2)
-                moving_sprites.add(player)
-        else:
-            # Switch to Idle state if not already in Idle state
-            if not isinstance(player, Idle):
-                moving_sprites.remove(player)
-                player = Idle(WIDTH // 2, HEIGHT // 2)
-                moving_sprites.add(player)
         
             
 

@@ -43,6 +43,7 @@ class Player(pygame.sprite.Sprite):
         self.current_animation = None
         self.current_sprite = 0
         self.state = 'idle'
+        self.image = None
 
         # Load frames for the animation
         self.animations = {

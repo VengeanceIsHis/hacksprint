@@ -51,7 +51,7 @@ class Animation:
         return self.frames[self.current_frame]
 
 class Player:
-    def __init__(self, width, height):
+    def __init__(self, width=40, height=40):
         self.width = width
         self.height = height
         self.x = 100

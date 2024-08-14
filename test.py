@@ -169,9 +169,10 @@ def main():
             pygame.time.delay(4000)
             break
 
-        player.update()
+
         WIN.blit(BG, (0, 0))  # Clear screen with background color
-        player.draw(WIN)
+        player.draw(BG)
+        player.update()
         draw(elapsed_time, stars)
         pygame.display.flip()  # Update the display
 

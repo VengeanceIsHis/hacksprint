@@ -1,4 +1,5 @@
-##Authors
+# Authors
+
 david.portillo@atlasschool.com
 
 |Casey Paul| (Casey.Paul@atlasschool.com)

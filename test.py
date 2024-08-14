@@ -33,46 +33,25 @@ def draw(elapsed_time, stars):
 
     pygame.display.update()
 
-class Animation:
-    def __init__(self, frames=None, frame_rate=300, flipped=False):
-        if frames is None:
-            frames = []
-        self.frames = frames
-        self.frame_rate = frame_rate
-        self.current_frame = 0
-        self.last_update = pygame.time.get_ticks()
-        self.flipped = flipped
-
-    def update(self):
-        now = pygame.time.get_ticks()
-        if now - self.last_update > self.frame_rate:
-            self.current_frame = (self.current_frame + 1) % len(self.frames)
-            self.last_update = now
-
-    def get_current_frame(self):
-        if not self.frames:
-            return None
-        frame = self.frames[self.current_frame]
-        if self.flipped:
-            print("HIII")
-            return pygame.transform.flip(frame, True, False)
-        return frame
-
-class Player(Animation):
-    def __init__(self):
+class Player(pygame.sprite.Sprite):
+    def __init__(self, x, y):
         super().__init__()
         self.width = 64
         self.height = 64
         self.x = WIDTH // 2
         self.y = HEIGHT // 2
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         self.current_animation = None
+        self.current_sprite = 0
+        self.state = 'idle'
 
         # Load frames for the animation
         self.animations = {
             'idle': self.load_frames('idle'),
             'run': self.load_frames('run'),
         }
+        self.image = self.current_animation[self.current_sprite]
+        self.rect = self.image.get_rect()
+        self.rect.topleft = [self.x, self.y]
 
         # Set the initial animation
         self.current_animation = self.animations['idle']
@@ -91,16 +70,13 @@ class Player(Animation):
 
     def set_animation(self, animation_type):
         if animation_type in self.animations and self.animations[animation_type]:
-            self.current_animation = Animation(self.animations[animation_type], frame_rate=100)  # Adjust frame rate as needed
+            self.current_animation = self.animations[animation_type]  # Adjust frame rate as needed
 
     def update(self):
-        if self.current_animation:
-            self.current_animation.update()
-
-    def draw(self, screen):
-        frame = self.get_current_frame()
-        if frame: 
-            screen.blit(frame, self.rect.topleft)
+            self.current_sprite += 1
+            if self.current_sprite >= len(self.sprites):
+                self.current_sprite = 0
+            self.image =self.sprites[self.current_sprite]
 
     def get_current_frame(self):
         if self.current_animation:
@@ -113,9 +89,12 @@ class Player(Animation):
         self.rect.topleft = (self.x, self.y)
 
 def main():
+    pygame.init()
     run = True
 
     player = Player()
+    moving_sprites = pygame.sprite.Group()
+    moving_sprites.add(player)
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0
@@ -178,8 +157,8 @@ def main():
         # Update the player's animation and draw the updated player
         
         WIN.blit(BG, (0, 0))  # Clear screen with background image
-        player.draw(BG)
-        player.update()    
+        moving_sprites.draw(BG)
+        moving_sprites.update()
         draw(elapsed_time, stars)  # Draw other game elements
         pygame.display.flip()  # Update the display
 

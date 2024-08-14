@@ -7,7 +7,7 @@ pygame.font.init()
 WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Dodge")
-
+star_image = pygame.image.load('fireball.png')
 BG = pygame.transform.scale(pygame.image.load("bg.png"), (WIDTH, HEIGHT))
 
 PLAYER_WIDTH = 40
@@ -27,7 +27,7 @@ def display(elapsed_time, stars):
 
 
     for star in stars:
-        pygame.draw.rect(WIN, "white", star)
+        WIN.blit(star_image, star.topleft)
 
 
 class Idle(pygame.sprite.Sprite):

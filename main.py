@@ -140,7 +140,6 @@ def main():
             player.set_animation('idle')
 
         player.move(dx, dy)
-
         for star in stars[:]:
             star.y += STAR_VEL
             if star.y > HEIGHT:

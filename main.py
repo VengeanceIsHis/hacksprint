@@ -144,7 +144,7 @@ def main():
             star.y += STAR_VEL
             if star.y > HEIGHT:
                 stars.remove(star)
-            elif star.y + star.height >= player.y and star.colliderect(player):
+            elif star.y + star.height >= player.y and star.colliderect(player.x, player.y):
                 stars.remove(star)
                 hit = True
                 break

@@ -73,7 +73,7 @@ def main():
     pygame.init()
     run = True
 
-    player = Idle(10, 10)
+    player = Idle(800, 400)
     moving_sprites = pygame.sprite.Group()
     moving_sprites.add(player)
     clock = pygame.time.Clock()

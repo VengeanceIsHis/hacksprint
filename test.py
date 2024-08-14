@@ -34,7 +34,7 @@ def draw(elapsed_time, stars):
     pygame.display.update()
 
 class Animation:
-    def __init__(self, frames=None, frame_rate=300, flipped=False):
+    def __init__(self, frames=[], frame_rate=300, flipped=False):
         self.frames = frames
         self.frame_rate = frame_rate
         self.current_frame = 0
@@ -82,11 +82,11 @@ class Player(Animation):
                 frame = pygame.image.load(frame_path)
                 frame = pygame.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
+        print("HIII")
         return frames
 
     def set_animation(self, animation_type):
         if animation_type in self.animations and self.animations[animation_type]:
-            print("HIII")
             self.current_animation = Animation(self.animations[animation_type], frame_rate=100)  # Adjust frame rate as needed
 
     def update(self):

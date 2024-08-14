@@ -22,8 +22,6 @@ FONT = pygame.font.SysFont("comicsans", 30)
 
 
 def display(elapsed_time, stars):
-    WIN.blit(BG, (0, 0))
-
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
     WIN.blit(time_text, (10, 10))
 

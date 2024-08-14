@@ -84,7 +84,7 @@ class Player(pygame.sprite.Sprite):
         frame = self.get_current_frame()
         if frame:
             screen.blit(frame, (self.x, self.y))
-        print("HIIII")
+            print("HIIII")
 
     def move(self, dx, dy):
         self.x += dx

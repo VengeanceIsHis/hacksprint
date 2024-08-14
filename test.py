@@ -66,8 +66,8 @@ class Player(Animation):
 
         # Load frames for the animation
         self.animations = {
-            'idle': self.load_frames('idle'),
-            'run': self.load_frames('run')
+            'idle': Animation(self.load_frames('idle'), frame_rate=300),
+            'run': Animation(self.load_frames('run'), frame_rate=100)
         }
 
         # Set the initial animation
@@ -166,7 +166,7 @@ def main():
 
         player.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background color
-        player.draw(WIN)
+        player.draw(BG)
         draw(elapsed_time, stars)
         pygame.display.flip()  # Update the display
 

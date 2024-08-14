@@ -5,7 +5,7 @@ pygame.font.init()
 
 WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Dodge")
+pygame.display.set_caption("Smokey Lava")
 
 BG = pygame.transform.scale(pygame.image.load("bg.png"), (WIDTH, HEIGHT))
 

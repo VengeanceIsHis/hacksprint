@@ -56,7 +56,7 @@ class Player(pg.sprite.Sprite): # Defines character
             screen.blit(frame, (self.x, self.y))
             print("HIIII")
 
-    def move(self, dx, dy):
+    def move(self, dx, dy): #defines movement and starting position
         self.x += dx
         self.y += dy
         self.rect.topleft = (self.x, self.y)

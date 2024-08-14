@@ -53,10 +53,10 @@ class Idle(pygame.sprite.Sprite):
         self.rect.topleft = [self.x, self.y]
 
     def update(self):
-            self.current_sprite += 1
+            self.current_sprite += 0.2
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
-            self.image = self.sprites[self.current_sprite]
+            self.image = self.sprites[int(self.current_sprite)]
 
     def move(self, dx, dy):
         self.x += dx

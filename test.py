@@ -21,7 +21,7 @@ STAR_VEL = 3
 FONT = pygame.font.SysFont("comicsans", 30)
 
 
-def draw(elapsed_time, stars):
+def display(elapsed_time, stars):
     WIN.blit(BG, (0, 0))
 
     time_text = FONT.render(f"Time: {round(elapsed_time)}s", 1, "white")
@@ -161,7 +161,7 @@ def main():
         WIN.blit(BG, (0, 0))  # Clear screen with background image
         moving_sprites.draw(BG)
         moving_sprites.update()
-        draw(elapsed_time, stars)  # Draw other game elements
+        display(elapsed_time, stars)  # Draw other game elements
         pygame.display.flip()  # Update the display
 
     pygame.quit()

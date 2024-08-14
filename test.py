@@ -49,7 +49,7 @@ class Player(pygame.sprite.Sprite):
             if filename.endswith('.png'):
                 frame_path = os.path.join(folder_path, filename)
                 frame = pygame.image.load(frame_path)
-                frame = pygame.transform.scale(frame, (self.width, self.height))
+                frame = pygame.transform.scale(frame, (50, 50))
                 frames.append(frame)
         return frames
 

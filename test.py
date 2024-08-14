@@ -34,14 +34,15 @@ def display(elapsed_time, stars):
     pygame.display.update()
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,x , y):
         super().__init__()
         self.sprites = []
         self.sprites.append(self.load_frames('idle'))
-        self.image = None
+        self.current_sprite = 0
+        self.image = self.sprites[self.current_sprite]
         
         self.rect = self.image.get_rect()
-        self.rect.topleft = [self.x, self.y]
+        self.rect.topleft = [x, y]
     def load_frames(self, animation_type):
         frames = []
         folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
@@ -68,7 +69,7 @@ def main():
     pygame.init()
     run = True
 
-    player = Player()
+    player = Player(10, 10)
     moving_sprites = pygame.sprite.Group()
     moving_sprites.add(player)
     clock = pygame.time.Clock()

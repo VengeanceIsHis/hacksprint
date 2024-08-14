@@ -37,7 +37,14 @@ class Player(pygame.sprite.Sprite):
     def __init__(self,x , y):
         super().__init__()
         self.sprites = []
-        self.sprites.append(self.load_frames('idle'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k1.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k2.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k3.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k4.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k5.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k6.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k7.png'))
+        self.sprites.append(self.load_frames('assets/Knight/idle/k8.png'))
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
         

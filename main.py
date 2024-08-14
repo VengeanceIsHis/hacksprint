@@ -34,73 +34,75 @@ def draw(elapsed_time, stars):
 
     pygame.display.update()
 
-class Animation:
-    def __init__(self, frames, frame_rate):
-        self.frames = frames
-        self.frame_rate = frame_rate
-        self.current_frame = 0
-        self.time_since_last_frame = 0
-
-    def update(self):
-        self.time_since_last_frame += 1
-        if self.time_since_last_frame > self.frame_rate:
-            self.current_frame = (self.current_frame + 1) % len(self.frames)
-            self.time_since_last_frame = 0
-
-    def get_current_frame(self):
-        return self.frames[self.current_frame]
-
 class Player:
-    def __init__(self, width=40, height=40):
-        self.width = width
-        self.height = height
+    def __init__(self):
+        # Define width and height for scaling frames
+        self.width = 64  # Example width, adjust as needed
+        self.height = 64  # Example height, adjust as needed
+
+        # Load frames for the animation
+        self.frames = self.load_frames()
+        self.animations = {
+            'run_left': self.load_frames()
+        }
+
+        # Create an Animation object
+        self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
+
+        # Player position
         self.x = 100
         self.y = 100
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        
-        # Load animations
-        self.animations = {
-            'run_left': self.load_frames('run', flip=True),
-            'run_right': self.load_frames('run'),
-            'idle': self.load_frames('idle')
-        }
-        
-        self.current_animation = Animation(self.animations['idle'], frame_rate=10)
-        self.direction = 'idle'
 
-    def load_frames(self, animation_type, flip=False):
+    def load_frames(self):
         frames = []
-        path = f"assets/animations/Knight/{animation_type}"
-        for filename in sorted(os.listdir(path)):
+        folder_path = os.path.join('assets', 'animations', 'Knight', 'idle')
+        for filename in sorted(os.listdir(folder_path)):
             if filename.endswith('.png'):
-                frame_path = os.path.join(path, filename)
-                frame = pygame.image.load(frame_path)
-                frame = pygame.transform.scale(frame, (self.width, self.height))
-                if flip:
-                    frame = pygame.transform.flip(frame, True, False)
+                frame_path = os.path.join(folder_path, filename)
+                frame = pg.image.load(frame_path)
+                # Scale frame using defined width and height
+                frame = pg.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
         return frames
 
     def update(self):
-        self.current_animation.update()
-        self.rect.topleft = (self.x, self.y)
+        # Update the animation
+        self.animation.update()
 
-    def draw(self, surface):
-        surface.blit(self.current_animation.get_current_frame(), self.rect.topleft)
+    def get_current_frame(self):
+        # Return the current frame from the animation
+        return self.animation.get_current_frame()
 
-    def set_animation(self, animation_type):
-        if self.direction != animation_type:
-            self.direction = animation_type
-            self.current_animation = Animation(self.animations[animation_type], frame_rate=10)
+    def draw(self, screen):
+        screen.blit(self.get_current_frame(), (self.x, self.y))
 
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
-        self.rect.topleft = (self.x, self.y)
+
+class Animation:
+    def __init__(self, frames, frame_rate, flipped=False):
+        self.frames = frames
+        self.frame_rate = frame_rate
+        self.current_frame = 0
+        self.last_update = pg.time.get_ticks()
+        self.flipped = flipped
+
+    def update(self):
+        now = pg.time.get_ticks()
+        if now - self.last_update > self.frame_rate:
+            self.current_frame = (self.current_frame + 1) % len(self.frames)
+            self.last_update = now
+
+    def get_current_frame(self):
+        return self.frames[self.current_frame]
+
 def main():
     run = True
 
     player = Player(width=40, height=40)
+    player.load_frames('idle')
+    player.load_frames
     clock = pygame.time.Clock()
     start_time = time.time()
     elapsed_time = 0

@@ -92,6 +92,7 @@ class Player(Animation):
     def set_animation(self, animation_type):
         if animation_type in self.animations and self.animations[animation_type]:
             self.current_animation = Animation(self.animations[animation_type], frame_rate=100)  # Adjust frame rate as needed
+        self.update()
 
     def update(self):
         if self.current_animation:
@@ -121,7 +122,6 @@ def main():
     hit = False
 
     while run:
-        player.update()
         star_count += clock.tick(60)
         elapsed_time = time.time() - start_time
 

@@ -33,15 +33,18 @@ def draw(elapsed_time, stars):
 
     pygame.display.update()
 
-class Player:
+class Player(pygame.sprite.Sprite):
     def __init__(self):
-        # Define width and height for scaling frames
-        self.width = 64  # Example width, adjust as needed
-        self.height = 64  # Example height, adjust as needed
+        super().__init__()
+        self.width = 64
+        self.height = 64
 
         # Load frames for the animation
+        self.animations = {
+            'idle': [],
+            'run': []
+        }
         self.frames = self.load_frames()
-        self.animations = ['idle', 'run']
 
         # Create an Animation object
         self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
@@ -49,7 +52,13 @@ class Player:
         # Player position
         self.x = 100
         self.y = 100
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.current_animation = None
 
+    def set_animation(self, animation_type):
+        if animation_type in self.animations and self.animations[animation_type]:
+            self.current_animation = Animation(self.animation[animation_type], frame_rate=300)
+    
     def load_frames(self):
         frames = []
         for path in self.animations:
@@ -72,11 +81,13 @@ class Player:
         return self.animation.get_current_frame()
 
     def draw(self, screen):
-        screen.blit(self.get_current_frame(), (self.x, self.y))
+        if self.current_animation:
+            screen.blit(self.get_current_frame(), (self.x, self.y))
 
     def move(self, dx, dy):
         self.x += dx
         self.y += dy
+        self.rect.topleft = (self.x, self.y)
 
 class Animation:
     def __init__(self, frames, frame_rate, flipped=False):

@@ -32,10 +32,12 @@ def display(elapsed_time, stars):
     pygame.display.update()
 
 class Idle(pygame.sprite.Sprite):
-    def __init__(self,x , y):
+    def __init__(self, x, y):
         super().__init__()
         self.x = x
         self.y = y
+        
+        # Load and scale images
         self.sprites = []
         self.image0 = pygame.image.load('assets/animations/Knight/idle/i1.png')
         self.image1 = pygame.image.load('assets/animations/Knight/idle/i2.png')
@@ -43,18 +45,25 @@ class Idle(pygame.sprite.Sprite):
         self.image1 = pygame.transform.scale(self.image1, (100, 100))
         self.sprites.append(self.image0)
         self.sprites.append(self.image1)
-
+        
+        # Initialize sprite attributes
         self.current_sprite = 0
         self.image = self.sprites[self.current_sprite]
-        
         self.rect = self.image.get_rect()
-        self.rect.topleft = [self.x, self.y]
+        self.rect.topleft = (self.x, self.y)
+        self.animation_speed = 0.2  # Adjust animation speed as needed
+        self.last_update = pygame.time.get_ticks()
 
     def update(self):
-            self.current_sprite += 0.2
+        now = pygame.time.get_ticks()
+        # Update animation frame based on the animation speed
+        if now - self.last_update > 100:  # Adjust frame rate here
+            self.last_update = now
+            self.current_sprite += self.animation_speed
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
             self.image = self.sprites[int(self.current_sprite)]
+            self.rect = self.image.get_rect(topleft=(self.x, self.y))  # Update rect to new image size if needed
 
     def move(self, dx, dy):
         self.x += dx

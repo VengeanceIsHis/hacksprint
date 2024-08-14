@@ -64,9 +64,23 @@ class Idle(pygame.sprite.Sprite):
             self.image = self.sprites[int(self.current_sprite)]
             self.rect = self.image.get_rect(topleft=(self.x, self.y))  # Update rect to new image size if needed
 
-    def move(self, dx, dy):
+    def move(self, dx, dy, screen_width, screen_height):
+        # Update the sprite's position
         self.x += dx
         self.y += dy
+
+        # Ensure the sprite stays within screen bounds
+        if self.x < 0:
+            self.x = 0
+        elif self.x + self.rect.width > screen_width:
+            self.x = screen_width - self.rect.width
+
+        if self.y < 0:
+            self.y = 0
+        elif self.y + self.rect.height > screen_height:
+            self.y = screen_height - self.rect.height
+
+        # Update the rect position
         self.rect.topleft = (self.x, self.y)
 
 def main():
@@ -112,7 +126,7 @@ def main():
            
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
-           
+        
             
 
         # Ensure the player position is updated

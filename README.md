@@ -1,5 +1,8 @@
+##Authors
 david.portillo@atlasschool.com
+
 |Casey Paul| (Casey.Paul@atlasschool.com)
+
 # Smoky Lava - Pygame Animation
 
 This Pygame project showcases a simple animation of a knight character over a background image. The knight's animation is looped, and an optional outline can be drawn around the character.

@@ -172,7 +172,6 @@ def main():
         player.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background color
         player.draw(BG)
-        player.update()
         draw(elapsed_time, stars)
         pygame.display.flip()  # Update the display
 
@@ -181,4 +180,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-dadad

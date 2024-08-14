@@ -3,7 +3,7 @@ import random
 import time
 import os
 
-class Player(pg.sprite.Sprite):
+class Player(pg.sprite.Sprite): # Defines character
     def __init__(self):
         super().__init__()
         self.width = 64

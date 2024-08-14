@@ -108,7 +108,6 @@ class Player(Animation):
 
 def main():
     run = True
-
     player = Player()
     clock = pygame.time.Clock()
     start_time = time.time()
@@ -162,20 +161,19 @@ def main():
                 break
 
         if hit:
-            lost_text = FONT.render("You Lost!", 1, "white")
+            lost_text = FONT.render("You Lost!", 1, WHITE)
             WIN.blit(lost_text, (WIDTH / 2 - lost_text.get_width() / 2, HEIGHT / 2 - lost_text.get_height() / 2))
             pygame.display.update()
             pygame.time.delay(4000)
             break
 
         player.update()
-        WIN.blit(BG, (0, 0))  # Clear screen with background color
-        player.draw(BG)
-        draw(elapsed_time, stars)
-        pygame.display.flip()  # Update the display
+        WIN.blit(BG, (0, 0))  # 1. Clear screen with background image
+        player.draw(BG)      # 2. Draw the player on the screen
+        draw(elapsed_time, stars)  # 3. Draw stars or other game elements
+        pygame.display.flip()  # 4. Update the display
 
     pygame.quit()
-
 
 if __name__ == "__main__":
     main()

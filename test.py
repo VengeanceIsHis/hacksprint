@@ -35,7 +35,7 @@ class Idle(pygame.sprite.Sprite):
         super().__init__()
         self.x = x
         self.y = y
-        
+
         # Load and scale images
         self.sprites = []
         self.image0 = pygame.image.load('assets/animations/Knight/idle/i1.png')
@@ -135,10 +135,9 @@ def main():
             break
 
         # Update the player's animation and draw the updated player
-        
+        moving_sprites.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background image
         moving_sprites.draw(BG)
-        moving_sprites.update()
         display(elapsed_time, stars)  # Draw other game elements
         pygame.display.flip()  # Update the display
 

@@ -169,7 +169,7 @@ def main():
             pygame.time.delay(4000)
             break
 
-
+        player.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background color
         player.draw(BG)
         player.update()
@@ -181,3 +181,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+dadad

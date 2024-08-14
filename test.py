@@ -29,7 +29,6 @@ def display(elapsed_time, stars):
     for star in stars:
         pygame.draw.rect(WIN, "white", star)
 
-    pygame.display.update()
 
 class Idle(pygame.sprite.Sprite):
     def __init__(self, x, y):

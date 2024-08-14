@@ -137,7 +137,7 @@ def main():
         # Update the player's animation and draw the updated player
         moving_sprites.update()
         WIN.blit(BG, (0, 0))  # Clear screen with background image
-        moving_sprites.draw(BG)
+        moving_sprites.draw(WIN)
         display(elapsed_time, stars)  # Draw other game elements
         pygame.display.flip()  # Update the display
 

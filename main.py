@@ -138,10 +138,10 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
             player.x -= PLAYER_VEL
-            player.load_frames('run_left')
+            player.load_frames('run')
         if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.width <= WIDTH:
             player.x += PLAYER_VEL
-            player.load_frames('run_right')
+            player.load_frames('run')
 
         for star in stars[:]:
             star.y += STAR_VEL

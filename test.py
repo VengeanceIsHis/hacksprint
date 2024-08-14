@@ -50,6 +50,8 @@ class Animation:
             self.last_update = now
 
     def get_current_frame(self):
+        if not self.frames:
+            return None
         frame = self.frames[self.current_frame]
         if self.flipped:
             print("HIII")

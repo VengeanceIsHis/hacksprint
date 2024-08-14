@@ -121,6 +121,7 @@ def main():
     hit = False
 
     while run:
+        player.update()
         star_count += clock.tick(60)
         elapsed_time = time.time() - start_time
 

@@ -33,64 +33,6 @@ def draw(elapsed_time, stars):
 
     pygame.display.update()
 
-class Player(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.width = 64
-        self.height = 64
-        self.x = 100
-        self.y = 100
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-
-        # Load frames for the animation
-        self.animations = {
-            'idle': [],
-            'run_left': [],
-            'run_right': []
-        }
-        self.load_frames()
-        self.current_animation = None
-
-    def set_animation(self, animation_type):
-        if animation_type in self.animations and self.animations[animation_type]:
-            self.current_animation = Animation(self.animations[animation_type], frame_rate=300)
-    
-    def load_frames(self):
-        for animation_type in self.animations:
-            animation = animation_type
-            if animation == 'run_left' or animation == 'run_right':
-                animation = 'run'
-            frames = []
-            folder_path = os.path.join('assets', 'animations', 'Knight', animation)
-            for filename in sorted(os.listdir(folder_path)):
-                if filename.endswith('.png'):
-                    frame_path = os.path.join(folder_path, filename)
-                    frame = pygame.image.load(frame_path)
-                    frame = pygame.transform.scale(frame, (self.width, self.height))
-                    frames.append(frame)
-            self.animations[animation_type] = frames
-
-    def update(self):
-        if self.current_animation:
-            self.current_animation.update()
-
-    def get_current_frame(self):
-        # Return the current frame from the animation
-        if self.current_animation:
-            return self.current_animation.get_current_frame()
-        return None
-
-    def draw(self, screen):
-        frame = self.get_current_frame()
-        if frame:
-            screen.blit(frame, (self.x, self.y))
-            print("HIIII")
-
-    def move(self, dx, dy):
-        self.x += dx
-        self.y += dy
-        self.rect.topleft = (self.x, self.y)
-
 class Animation:
     def __init__(self, frames, frame_rate, flipped=False):
         self.frames = frames
@@ -110,6 +52,53 @@ class Animation:
         if self.flipped:
             return pygame.transform.flip(frame, True, False)
         return frame
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.width = 64
+        self.height = 64
+        self.x = WIDTH // 2
+        self.y = HEIGHT // 2
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        self.current_animation = None
+
+        # Load frames for the animation
+        self.animations = {
+            'idle': self.load_frames('idle'),
+            'run': self.load_frames('run')
+        }
+
+        # Set the initial animation
+        self.set_animation('idle')
+
+    def load_frames(self, animation_type):
+        frames = []
+        folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
+        for filename in sorted(os.listdir(folder_path)):
+            if filename.endswith('.png'):
+                frame_path = os.path.join(folder_path, filename)
+                frame = pygame.image.load(frame_path)
+                frame = pygame.transform.scale(frame, (self.width, self.height))
+                frames.append(frame)
+        return frames
+
+    def set_animation(self, animation_type):
+        if animation_type in self.animations and self.animations[animation_type]:
+            self.current_animation = Animation(self.animations[animation_type], frame_rate=100)  # Adjust frame rate as needed
+
+    def update(self):
+        if self.current_animation:
+            self.current_animation.update()
+
+    def draw(self, screen):
+        if self.current_animation:
+            screen.blit(self.current_animation.get_current_frame(), (self.x, self.y))
+
+    def move(self, dx, dy):
+        self.x += dx
+        self.y += dy
+        self.rect.topleft = (self.x, self.y)
 
 def main():
     run = True

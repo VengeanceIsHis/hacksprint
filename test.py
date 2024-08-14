@@ -70,8 +70,8 @@ class Player(Animation):
 
         # Load frames for the animation
         self.animations = {
-            'idle': Animation(self.load_frames('idle'), frame_rate=300),
-            'run': Animation(self.load_frames('run'), frame_rate=100)
+            'idle': self.load_frames('idle'),
+            'run': self.load_frames('run'),
         }
 
         # Set the initial animation

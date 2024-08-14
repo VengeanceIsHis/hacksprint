@@ -49,7 +49,8 @@ class Player(pygame.sprite.Sprite):
             'idle': self.load_frames('idle'),
             'run': self.load_frames('run'),
         }
-        self.image = self.current_animation[self.current_sprite]
+        if self.current_animation != None:
+            self.image = self.current_animation[self.current_sprite]
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.x, self.y]
 
@@ -76,7 +77,6 @@ class Player(pygame.sprite.Sprite):
             self.current_sprite += 1
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
-            if current_animation != None:
                 self.image =self.sprites[self.current_sprite]
 
     def get_current_frame(self):

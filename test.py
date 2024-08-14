@@ -186,18 +186,18 @@ def main():
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
          # Check if player is moving
-    if dx != 0 or dy != 0:
+        if dx != 0 or dy != 0:
         # Switch to Run state if not already in Run state
-        if not isinstance(player, Run):
-            all_sprites.remove(player)
-            player = Run(WIDTH // 2, HEIGHT // 2)
-            all_sprites.add(player)
-    else:
-        # Switch to Idle state if not already in Idle state
-        if not isinstance(player, Idle):
-            all_sprites.remove(player)
-            player = Idle(WIDTH // 2, HEIGHT // 2)
-            all_sprites.add(player)
+            if not isinstance(player, Run):
+                moving_sprites.remove(player)
+                player = Run(WIDTH // 2, HEIGHT // 2)
+                moving_sprites.add(player)
+        else:
+            # Switch to Idle state if not already in Idle state
+            if not isinstance(player, Idle):
+                moving_sprites.remove(player)
+                player = Idle(WIDTH // 2, HEIGHT // 2)
+                moving_sprites.add(player)
         
             
 

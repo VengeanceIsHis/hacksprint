@@ -36,28 +36,12 @@ def display(elapsed_time, stars):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.width = 64
-        self.height = 64
-        self.x = WIDTH // 2
-        self.y = HEIGHT // 2
-        self.current_animation = None
-        self.current_sprite = 0
-        self.state = 'idle'
+        self.sprites = []
+        self.sprites.append(self.load_frames('idle'))
         self.image = None
-
-        # Load frames for the animation
-        self.animations = {
-            'idle': self.load_frames('idle'),
-            'run': self.load_frames('run'),
-        }
-        if self.current_animation != None:
-            self.image = self.current_animation[self.current_sprite]
+        
         self.rect = self.image.get_rect()
         self.rect.topleft = [self.x, self.y]
-
-        # Set the initial animation
-        self.current_animation = self.animations['idle']
-
     def load_frames(self, animation_type):
         frames = []
         folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
@@ -67,23 +51,13 @@ class Player(pygame.sprite.Sprite):
                 frame = pygame.image.load(frame_path)
                 frame = pygame.transform.scale(frame, (self.width, self.height))
                 frames.append(frame)
-        print("HIII")
         return frames
-
-    def set_animation(self, animation_type):
-        if animation_type in self.animations and self.animations[animation_type]:
-            self.current_animation = self.animations[animation_type]  # Adjust frame rate as needed
 
     def update(self):
             self.current_sprite += 1
             if self.current_sprite >= len(self.sprites):
                 self.current_sprite = 0
                 self.image =self.sprites[self.current_sprite]
-
-    def get_current_frame(self):
-        if self.current_animation:
-            return self.current_animation.get_current_frame()
-        return None
 
     def move(self, dx, dy):
         self.x += dx

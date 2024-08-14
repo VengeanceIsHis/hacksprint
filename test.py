@@ -38,21 +38,17 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.width = 64
         self.height = 64
-
-        # Load frames for the animation
-        self.animations = {
-            'idle': [],
-            'run': []
-        }
-        self.frames = self.load_frames()
-
-        # Create an Animation object
-        self.animation = Animation(self.frames, frame_rate=300)  # Adjust frame_rate as needed
-
-        # Player position
         self.x = 100
         self.y = 100
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+
+        # Load frames for the animation
+        self.animations = {
+            'idle': self.load_frames('idle'),
+            'run_left': self.load_frames('run'),
+            'run_right': self.load_frames('run')
+        }
+        
         self.current_animation = None
 
     def set_animation(self, animation_type):
@@ -67,22 +63,24 @@ class Player(pygame.sprite.Sprite):
                 if filename.endswith('.png'):
                     frame_path = os.path.join(folder_path, filename)
                     frame = pygame.image.load(frame_path)
-                    # Scale frame using defined width and height
                     frame = pygame.transform.scale(frame, (self.width, self.height))
                     frames.append(frame)
         return frames
 
     def update(self):
-        # Update the animation
-        self.animation.update()
+        if self.current_animation:
+            self.current_animation.update()
 
     def get_current_frame(self):
         # Return the current frame from the animation
-        return self.animation.get_current_frame()
+        if self.current_animation:
+            return self.current_animation.get_current_frame()
+        return None
 
     def draw(self, screen):
-        if self.current_animation:
-            screen.blit(self.get_current_frame(), (self.x, self.y))
+        frame = self.get_current_frame()
+        if frame:
+            screen.blit(frame, (self.x, self.y))
 
     def move(self, dx, dy):
         self.x += dx
@@ -104,7 +102,10 @@ class Animation:
             self.last_update = now
 
     def get_current_frame(self):
-        return self.frames[self.current_frame]
+        frame = self.frames[self.current_frame]
+        if self.flipped:
+            return pygame.transform.flip(frame, True, False)
+        return frame
 
 def main():
     run = True
@@ -143,10 +144,10 @@ def main():
 
         if keys[pygame.K_LEFT]:
             dx = -PLAYER_VEL
-            player.set_animation('run_left')
+            player.set_animation('run')
         elif keys[pygame.K_RIGHT]:
             dx = PLAYER_VEL
-            player.set_animation('run_right')
+            player.set_animation('run')
         else:
             player.set_animation('idle')
 

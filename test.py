@@ -50,16 +50,6 @@ class Player(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
         self.rect.topleft = [x, y]
-    def load_frames(self, animation_type):
-        frames = []
-        folder_path = os.path.join('assets', 'animations', 'Knight', animation_type)
-        for filename in sorted(os.listdir(folder_path)):
-            if filename.endswith('.png'):
-                frame_path = os.path.join(folder_path, filename)
-                frame = pygame.image.load(frame_path)
-                frame = pygame.transform.scale(frame, (50, 50))
-                frames.append(frame)
-        return frames
 
     def update(self):
             self.current_sprite += 1

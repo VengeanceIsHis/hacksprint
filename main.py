@@ -41,6 +41,7 @@ class Player:
         self.height = 64  # Example height, adjust as needed
 
         # Load frames for the animation
+        self.load_frames('idle')
         self.animations = {
             'run_left': self.load_frames('run'),
             'run_right': self.load_frames('run'),
@@ -137,8 +138,10 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT] and player.x - PLAYER_VEL >= 0:
             player.x -= PLAYER_VEL
+            player.load_frames('run_left')
         if keys[pygame.K_RIGHT] and player.x + PLAYER_VEL + player.width <= WIDTH:
             player.x += PLAYER_VEL
+            player.load_frames('run_right')
 
         for star in stars[:]:
             star.y += STAR_VEL
